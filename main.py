@@ -19,12 +19,17 @@ from algokit_utils.beta.algorand_client import (
 import algokit_utils
 
 load_dotenv()
+
+#import seedphrase from the .env
 PASSPHRASE = os.environ.get("PASSPHRASE")
 
 print("--------------------------------------------")
 print("Processing account...")
 
+#Connect to testnet
+
 algorand = AlgorandClient.test_net()
+# Retrieve the account from seedphrase
 account = algokit_utils.get_account_from_mnemonic(PASSPHRASE)
 
 print(account.private_key)
@@ -38,6 +43,7 @@ metadataJSON = json.loads(f.read())
 metadataStr = json.dumps(metadataJSON)
 print(metadataStr)
 
+#Creating the metadata_hash
 hash = hashlib.new("sha512_256")
 hash.update(b"arc0003/amj")
 hash.update(metadataStr.encode("utf-8"))
@@ -55,7 +61,7 @@ sent_txn = algorand.send.asset_create(
         manager=account.address,
         clawback=account.address,
         freeze=account.address,
-        url="https://gateway.pinata.cloud/ipfs/QmTURg66KbuZqFgajPhLnRaaMnpCVZcmhR1xgc3xaGGzUL", 
+        url="https://gateway.pinata.cloud/ipfs/QmTURg66KbuZqFgajPhLnRaaMnpCVZcmhR1xgc3xaGGzUL", # URL to the metada file on IPFS 
         metadata_hash=json_metadata_hash,
         decimals=0
         
