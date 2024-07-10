@@ -56,12 +56,12 @@ def create_nft_asset(algorand, account, metadata_hash):
             sender=account.address,
             signer=account.signer,
             total=1,  # Total number of tokens (1 for NFT)
-            asset_name="Test",  # Asset name (to be determined)
-            unit_name="Test",  # Unit name (to be determined)
+            asset_name="TBA",  # Asset name (to be determined)
+            unit_name="TBA",  # Unit name (to be determined)
             manager=account.address,
             clawback=account.address,
             freeze=account.address,
-            url="https://gateway.pinata.cloud/ipfs/QmZimoKYoRwBcWtRYsoRJPRk8aDwZp2j4zUihh2eczpdRp",  # URL to the metadata file on IPFS or similar
+            url="TBA",  # URL to the metadata file on IPFS or similar
             metadata_hash=metadata_hash,
             decimals=0  # Decimals (0 for NFT)
         )
@@ -72,8 +72,9 @@ if __name__ == "__main__":
     # Generate new account and write mnemonic to .env file
     address, mnemonic_phrase = generate_new_account()
     print("Account Address:", address)
-    #write_mnemonic_to_env(mnemonic_phrase)
-    #print("Mnemonic saved to .env file.")
+    # ---> COMMENT OUT AFTER RUNNING ONCE <--- #
+    write_mnemonic_to_env(mnemonic_phrase)
+    print("Mnemonic saved to .env file.")
 
     # Load passphrase from .env file
     passphrase = load_passphrase_from_env()
