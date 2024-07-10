@@ -69,23 +69,26 @@ def create_nft_asset(algorand, account, metadata_hash):
     return sent_txn
 
 if __name__ == "__main__":
-    # Generate new account and write mnemonic to .env file
-    address, mnemonic_phrase = generate_new_account()
-    print("Account Address:", address)
-    # ---> COMMENT OUT AFTER RUNNING ONCE <--- #
-    write_mnemonic_to_env(mnemonic_phrase)
-    print("Mnemonic saved to .env file.")
-
-    # Load passphrase from .env file
+    # Check if mnemonic already exists in the .env file
     passphrase = load_passphrase_from_env()
-    print("Passphrase loaded from .env file.")
+
+    if passphrase is None:
+        # Generate new account and write mnemonic to .env file
+        address, mnemonic_phrase = generate_new_account()
+        print("Account Address:", address)
+        write_mnemonic_to_env(mnemonic_phrase)
+        print("Mnemonic saved to .env file.")
+        account_info = get_account_from_passphrase(mnemonic_phrase)
+    else:
+        print("Mnemonic already exists in .env file. Using existing account.")
+        account_info = get_account_from_passphrase(passphrase)
+        address = account_info.address
 
     # Connect to Algorand Testnet
     algorand_client = connect_to_algorand_testnet()
     print("Connected to Algorand Testnet.")
 
     # Retrieve account information
-    account_info = get_account_from_passphrase(passphrase)
     print("Account private key:", account_info.private_key)
 
     # Load metadata from file
