@@ -9,5 +9,6 @@ git clone https://github.com/algorandfoundation/algokit-utils-py.git
 cd algokit-utils-py
 pip install .
 cd ..
+pip install python-dotenv
 
 echo "Setup completed."
